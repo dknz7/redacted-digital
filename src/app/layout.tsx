@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { fontDisplay, fontBody } from "@/lib/fonts";
 import PillNav from "@/components/navigation/PillNav";
+import Footer from "@/components/navigation/Footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -19,6 +20,7 @@ export default function RootLayout({
       <body className="grain-overlay antialiased">
         <PillNav />
         {children}
+        <Footer />
       </body>
     </html>
   );
