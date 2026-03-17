@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { fontDisplay, fontBody } from "@/lib/fonts";
+import PillNav from "@/components/navigation/PillNav";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -15,7 +16,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${fontDisplay.variable} ${fontBody.variable}`} suppressHydrationWarning>
-      <body className="grain-overlay antialiased">{children}</body>
+      <body className="grain-overlay antialiased">
+        <PillNav />
+        {children}
+      </body>
     </html>
   );
 }
