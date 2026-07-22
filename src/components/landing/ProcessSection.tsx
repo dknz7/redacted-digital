@@ -31,10 +31,10 @@ const steps = [
 
 export default function ProcessSection() {
   return (
-    <section className="py-24 px-6">
+    <section className="pt-12 pb-24 px-6">
       <div className="max-w-6xl mx-auto">
         <RedactionReveal>
-          <p className="font-display text-sm tracking-widest text-[#ff2c64] mb-16">
+          <p className="font-display text-base md:text-lg tracking-widest text-[#ff2c64] mb-16">
             // THE SECRET
           </p>
         </RedactionReveal>

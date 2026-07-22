@@ -2,9 +2,9 @@ import Link from "next/link";
 
 export default function FinalCTASection() {
   return (
-    <section className="py-32 px-6 text-center">
+    <section className="pt-16 pb-32 px-6 text-center">
       <div className="max-w-3xl mx-auto">
-        <p className="font-display text-sm tracking-widest text-[#ff2c64] mb-8">
+        <p className="font-display text-base md:text-lg tracking-widest text-[#ff2c64] mb-8">
           // MISSION BRIEFING REQUESTED
         </p>
 

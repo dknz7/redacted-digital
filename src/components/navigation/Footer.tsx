@@ -34,10 +34,10 @@ export default function Footer() {
             REDACTED<span className="text-[#ff2c64]">DIGITAL</span>
           </Link>
           <p className="font-body text-sm text-[#aaaaaa] mt-3">
-            Less phone time, more tool time.
+            Websites that work while you work.
           </p>
           <p className="font-body text-sm text-[#aaaaaa] mt-1">
-            Central Coast &amp; Hunter Valley, NSW
+            NSW based. Australia wide focused.
           </p>
           <p className="font-display text-[10px] tracking-widest text-[#aaaaaa]/50 mt-4">
             ABN: [TBD]

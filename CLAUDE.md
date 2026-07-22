@@ -1,3 +1,13 @@
+## Persistent Context (LifeOS)
+This project's strategic and operational context lives in Google Drive and is the single source of truth:
+- **Context file:** C:\Users\dicke\Desktop\Dump Zone\STACK\01-BRAIN\google-drive\claude-memory\redacted-digital\context
+- **System docs:** C:\Users\dicke\Desktop\Dump Zone\STACK\01-BRAIN\google-drive\claude-memory\README
+- At session start, read the relevant context file for current priorities, decisions, and blockers.
+- Significant decisions made in this session should be flagged for the nightly capture.
+- Auto-memory (project-specific technical notes) operates alongside this. Drive context = strategic/business. Auto-memory = code-level.
+
+---
+
 # Redacted Digital — Project Context
 
 > This file carries project context across all Claude sessions (Chat and Code).

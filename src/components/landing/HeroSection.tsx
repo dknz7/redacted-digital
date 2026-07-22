@@ -34,7 +34,7 @@ export default function HeroSection() {
         {/* Tagline */}
         <p className="text-lg md:text-xl font-body text-[#aaaaaa] mb-10">
           <TextScramble
-            text="Less phone time, more tool time."
+            text="Your website on the clock. You off it."
             duration={1200}
             delay={4200}
           />
@@ -59,6 +59,7 @@ export default function HeroSection() {
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
+          suppressHydrationWarning
         >
           <path
             strokeLinecap="round"

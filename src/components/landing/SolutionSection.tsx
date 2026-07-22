@@ -43,14 +43,8 @@ const services = [
 
 export default function SolutionSection() {
   return (
-    <section className="py-24 px-6">
+    <section className="pt-10 pb-24 px-6">
       <div className="max-w-6xl mx-auto">
-        <RedactionReveal>
-          <p className="font-body text-xl md:text-2xl text-white mb-16 text-center max-w-3xl mx-auto">
-            Do what you do best — the tools, the work. Not the admin.
-          </p>
-        </RedactionReveal>
-
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
           {services.map((service, index) => (
             <FlipCard key={service.title} {...service} index={index} />

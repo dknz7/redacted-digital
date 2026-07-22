@@ -28,12 +28,18 @@ export default function ProblemSection() {
                 </p>
               </RedactionReveal>
             ))}
+
+            <RedactionReveal delay={painPoints.length * 300}>
+              <p className="font-display text-lg md:text-xl tracking-wide text-white pt-2">
+                Do what you do best — the tools, the work. Not the admin.
+              </p>
+            </RedactionReveal>
           </div>
 
           {/* Closing prompt */}
-          <RedactionReveal delay={painPoints.length * 300 + 200}>
-            <p className="mt-12 font-display text-sm tracking-widest text-[#ff2c64]">
-              // THREAT ASSESSMENT COMPLETE — Countermeasures below.
+          <RedactionReveal delay={painPoints.length * 300 + 400}>
+            <p className="mt-8 font-display text-sm tracking-widest text-[#ff2c64] text-center">
+              ---- THREAT ASSESSMENT COMPLETED ----
             </p>
           </RedactionReveal>
         </div>
