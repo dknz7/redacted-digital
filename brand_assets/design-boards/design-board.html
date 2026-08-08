@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Redacted Digital — Design Board</title>
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=switzer@400,500,600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --ink900:#131416; --ink800:#1B1D20; --ink700:#24272B; --ink600:#33373C;
+          --ink400:#6B7076; --ink200:#B9BDC2; --ink050:#E8E9EA;
+          --paper:#F2EEE6; --paperDim:#E5DFD4; --paperLine:#D6CEC0;
+          --orange:#E2561C; --orangeDim:#B8410F;
+          --display:'Clash Display',system-ui,sans-serif;
+          --body:'Switzer',system-ui,sans-serif;
+          --mono:'JetBrains Mono',ui-monospace,monospace; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:#0E0F11; color:#D8DADD; font-family:var(--body);
+         padding:0 0 90px; -webkit-font-smoothing:antialiased; }
+  .bar { position:sticky; top:0; z-index:50; background:rgba(14,15,17,.9); backdrop-filter:blur(10px);
+         border-bottom:1px solid #24272B; padding:13px 30px; display:flex; gap:22px; align-items:center; }
+  .bar b { font-family:var(--display); text-transform:uppercase; font-size:14px; letter-spacing:.04em; color:#fff; }
+  .bar a { font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+           color:var(--ink400); text-decoration:none; }
+  .bar a:hover { color:var(--orange); }
+  main { max-width:1120px; margin:0 auto; padding:0 30px; }
+  h2 { font-family:var(--display); text-transform:uppercase; font-size:27px; letter-spacing:-.005em;
+       color:#fff; margin:52px 0 6px; }
+  .subtitle { font-size:14px; line-height:1.6; color:var(--ink400); max-width:70ch; margin:0 0 12px; }
+
+  .rd-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px; margin:14px 0 30px; }
+  .sw { border-radius:6px; overflow:hidden; border:1px solid #2A2D31; }
+  .sw-chip { height:74px; }
+  .sw-meta { padding:8px 10px; background:#17181B; }
+  .sw-name { font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink400); }
+  .sw-hex  { font-family:var(--mono); font-size:12px; font-weight:500; margin-top:2px; color:#fff; }
+  .sw-use  { font-size:10.5px; color:var(--ink400); margin-top:3px; line-height:1.35; }
+  .rd-label { font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+              color:var(--ink400); margin:34px 0 2px; }
+
+  .demo-dark { background:var(--ink800); border-radius:8px; overflow:hidden; position:relative;
+               background-image:linear-gradient(var(--ink600) 1px,transparent 1px),
+                                linear-gradient(90deg,var(--ink600) 1px,transparent 1px);
+               background-size:112px 112px; padding:52px 44px 46px; }
+  .demo-dark::after { content:''; position:absolute; inset:0; pointer-events:none; box-shadow:inset 0 0 90px rgba(0,0,0,.5); }
+  .eyebrow { font-family:var(--mono); font-size:11px; letter-spacing:.16em; color:var(--orange); text-transform:uppercase; margin-bottom:16px; }
+  .eyebrow .dim { color:var(--ink400); }
+  .demo-h1 { font-family:var(--display); font-weight:700; text-transform:uppercase;
+             font-size:clamp(30px,5vw,54px); line-height:.92; letter-spacing:-.01em; color:var(--ink050); margin:0 0 6px; }
+  .demo-h1 .accent { color:var(--orange); }
+  .demo-p { font-size:15px; line-height:1.6; color:var(--ink200); max-width:46ch; margin:18px 0 26px; }
+  .btn { display:inline-block; font-family:var(--mono); font-size:12px; letter-spacing:.12em; text-transform:uppercase;
+         background:var(--orange); color:#fff; padding:13px 22px; border-radius:3px; text-decoration:none; }
+  .btn-ghost { background:transparent; color:var(--ink200); border:1px solid var(--ink600); margin-left:8px; }
+  .corner { position:absolute; font-family:var(--mono); font-size:10px; letter-spacing:.1em; color:var(--ink400); }
+
+  .demo-paper { background:var(--paper); border-radius:8px; padding:46px 44px; position:relative; margin-top:14px;
+                background-image:linear-gradient(var(--paperLine) 1px,transparent 1px),
+                                 linear-gradient(90deg,var(--paperLine) 1px,transparent 1px);
+                background-size:112px 112px; }
+  .demo-paper .demo-h1 { color:var(--ink900); font-size:clamp(24px,4vw,40px); }
+  .demo-paper .demo-p { color:#3A3D42; }
+  .redact { background:#000; color:transparent; padding:0 .18em; border-radius:1px; user-select:none; }
+  .filecard { background:var(--paperDim); border:1px solid var(--paperLine); border-radius:4px; padding:16px 16px 18px; }
+  .filecard h4 { font-family:var(--display); text-transform:uppercase; font-size:17px; margin:8px 0 6px; color:var(--ink900); }
+  .filecard p { font-size:12.5px; line-height:1.5; color:#4A4E54; margin:0; }
+  .filenum { font-family:var(--mono); font-size:10px; letter-spacing:.12em; color:var(--orange); }
+
+  .cards-row { display:flex; gap:22px; flex-wrap:wrap; margin-top:14px; }
+  .bcard { width:85mm; height:55mm; border-radius:2.5mm; padding:7mm; position:relative;
+           box-shadow:0 10px 26px rgba(0,0,0,.5); overflow:hidden; }
+  .bcard-front { background:var(--paper); }
+  .bcard-back  { background:var(--ink900); display:flex; align-items:center; justify-content:center; }
+  .bc-mark { font-family:var(--display); font-weight:700; text-transform:uppercase; font-size:6.2mm;
+             line-height:1; color:var(--ink900); }
+  .bc-mark .bar2 { background:#000; color:var(--paper); padding:0 .14em .04em; }
+
+  /* wordmark lockup — covered vs declassified */
+  .marks { display:flex; gap:40px; flex-wrap:wrap; align-items:flex-start; margin-top:14px; }
+  .markbox { background:var(--paper); border-radius:6px; padding:30px 34px 26px; }
+  .markbox.onDark { background:var(--ink900); }
+  .wm { font-family:var(--display); font-weight:700; text-transform:uppercase; font-size:34px;
+        line-height:.95; color:var(--ink900); }
+  .onDark .wm { color:var(--ink050); }
+  .wm .cover { background:#000; color:transparent; padding:0 .14em; user-select:none; }
+  .onDark .wm .cover { background:var(--ink050); }
+  .wm .knock { background:#000; color:var(--paper); padding:0 .14em .04em; }
+  .onDark .wm .knock { background:var(--orange); color:#fff; }
+  .bc-rule { height:.5mm; background:var(--orange); width:14mm; margin:2.6mm 0 3mm; }
+  .bc-name { font-family:var(--display); text-transform:uppercase; font-size:3.4mm; color:var(--ink900); letter-spacing:.02em; }
+  .bc-role { font-family:var(--mono); font-size:2.3mm; letter-spacing:.1em; color:var(--orange); text-transform:uppercase; margin-top:.8mm; }
+  .bc-det { position:absolute; left:7mm; bottom:6mm; font-family:var(--mono); font-size:2.4mm; line-height:1.75; color:#3A3D42; }
+  .bc-corner { position:absolute; right:6mm; top:6mm; font-family:var(--mono); font-size:2.1mm; letter-spacing:.12em; color:#8A8378; }
+  .bc-seal { width:26mm; height:26mm; border-radius:50%; border:.45mm solid var(--orange);
+             display:flex; align-items:center; justify-content:center; text-align:center;
+             font-family:var(--mono); font-size:2.2mm; letter-spacing:.1em; color:var(--orange); line-height:1.6; }
+  .caption { font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink400); margin-top:9px; }
+
+  /* structure */
+  .st-wrap { display:grid; grid-template-columns:minmax(300px,1fr) minmax(260px,340px); gap:26px; align-items:start; }
+  @media (max-width:820px){ .st-wrap{ grid-template-columns:1fr; } }
+  .page { border-radius:8px; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,.4); }
+  .sec { padding:16px 20px; position:relative; }
+  .sec.dark  { background:var(--ink800); color:var(--ink050);
+               background-image:linear-gradient(var(--ink600) 1px,transparent 1px),linear-gradient(90deg,var(--ink600) 1px,transparent 1px);
+               background-size:70px 70px; }
+  .sec.deep  { background:var(--ink900); color:var(--ink050); }
+  .sec.paper { background:var(--paper); color:var(--ink900);
+               background-image:linear-gradient(var(--paperLine) 1px,transparent 1px),linear-gradient(90deg,var(--paperLine) 1px,transparent 1px);
+               background-size:70px 70px; }
+  .sec.thin  { padding:9px 20px; }
+  .sec-top { display:flex; align-items:baseline; gap:10px; margin-bottom:5px; }
+  .sec-num { font-family:var(--mono); font-size:9.5px; letter-spacing:.13em; color:var(--orange); }
+  .sec-tag { font-family:var(--mono); font-size:9.5px; letter-spacing:.13em; opacity:.45; }
+  .sec-name { font-family:var(--display); font-weight:700; text-transform:uppercase; font-size:19px;
+              line-height:1.05; margin:0 0 5px; }
+  .sec-desc { font-size:12.5px; line-height:1.5; opacity:.72; margin:0; max-width:52ch; }
+  .dark .redact, .deep .redact { background:var(--ink600); }
+  .flip { height:2px; background:linear-gradient(90deg,var(--orange) 0 34px,transparent 34px); }
+  .side h3 { font-family:var(--display); text-transform:uppercase; font-size:14px; margin:0 0 8px; color:#fff; }
+  .side ul { margin:0 0 20px; padding-left:17px; }
+  .side li { font-size:12.5px; line-height:1.62; margin-bottom:5px; color:var(--ink200); }
+  .cutlist li { color:var(--ink400); }
+  .side .k { font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--orange); }
+  .legend { display:flex; gap:14px; flex-wrap:wrap; margin:10px 0 20px; }
+  .lg { display:flex; align-items:center; gap:7px; font-family:var(--mono); font-size:10px; letter-spacing:.1em; color:var(--ink400); }
+  .dot { width:13px; height:13px; border-radius:3px; border:1px solid #2A2D31; }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <b>Redacted Digital</b>
+  <a href="#palette">01 · Palette</a>
+  <a href="#context">02 · In context</a>
+  <a href="#wordmark">03 · Wordmark</a>
+  <a href="#card">04 · Business card</a>
+  <a href="#structure">05 · Page structure</a>
+</div>
+
+<main>
+
+  <h2 id="palette">Palette — asphalt, paper, one orange</h2>
+  <p class="subtitle">Rendered in Clash Display / Switzer / JetBrains Mono so you're judging the real pairing. If the type looks like plain system fonts, the Fontshare CDN didn't load.</p>
+
+  <div class="rd-label">// Dark side — asphalt</div>
+  <div class="rd-grid">
+    <div class="sw"><div class="sw-chip" style="background:#131416"></div><div class="sw-meta"><div class="sw-name">ink-900</div><div class="sw-hex">#131416</div><div class="sw-use">Deepest. Hero, footer, full bleed</div></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#1B1D20"></div><div class="sw-meta"><div class="sw-name">ink-800</div><div class="sw-hex">#1B1D20</div><div class="sw-use">Base background. The asphalt</div></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#24272B"></div><div class="sw-meta"><div class="sw-name">ink-700</div><div class="sw-hex">#24272B</div><div class="sw-use">Elevated surfaces, cards</div></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#33373C"></div><div class="sw-meta"><div class="sw-name">ink-600</div><div class="sw-hex">#33373C</div><div class="sw-use">Grid lines on dark</div></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#6B7076"></div><div class="sw-meta"><div class="sw-name">ink-400</div><div class="sw-hex">#6B7076</div><div class="sw-use">Muted text, marginalia</div></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#B9BDC2"></div><div class="sw-meta"><div class="sw-name">ink-200</div><div class="sw-hex">#B9BDC2</div><div class="sw-use">Secondary text</div></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#E8E9EA"></div><div class="sw-meta"><div class="sw-name">ink-050</div><div class="sw-hex">#E8E9EA</div><div class="sw-use">Primary text on dark</div></div></div>
+  </div>
+
+  <div class="rd-label">// Paper side — document sections</div>
+  <div class="rd-grid">
+    <div class="sw"><div class="sw-chip" style="background:#F2EEE6"></div><div class="sw-meta"><div class="sw-name">paper</div><div class="sw-hex">#F2EEE6</div><div class="sw-use">Warm off-white. Manila-adjacent</div></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#E5DFD4"></div><div class="sw-meta"><div class="sw-name">paper-dim</div><div class="sw-hex">#E5DFD4</div><div class="sw-use">File cards, tabs, recessed</div></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#D6CEC0"></div><div class="sw-meta"><div class="sw-name">paper-line</div><div class="sw-hex">#D6CEC0</div><div class="sw-use">Grid lines on paper</div></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#000000"></div><div class="sw-meta"><div class="sw-name">redact</div><div class="sw-hex">#000000</div><div class="sw-use">Redaction bars. True black</div></div></div>
+  </div>
+
+  <div class="rd-label">// Accent</div>
+  <div class="rd-grid">
+    <div class="sw"><div class="sw-chip" style="background:#E2561C"></div><div class="sw-meta"><div class="sw-name">orange</div><div class="sw-hex">#E2561C</div><div class="sw-use">The one accent. CMYK-survivable</div></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#B8410F"></div><div class="sw-meta"><div class="sw-name">orange-dim</div><div class="sw-hex">#B8410F</div><div class="sw-use">Hover, pressed, rules</div></div></div>
+  </div>
+
+  <h2 id="context">In context</h2>
+  <p class="subtitle">Dark carries the pitch. Paper carries the proof — and it's the only place redaction actually works.</p>
+
+  <div class="demo-dark">
+    <div class="corner" style="left:16px;top:14px">[ 200 · SECURE ]</div>
+    <div class="corner" style="right:16px;top:14px">[ FILE 01 / 06 ]</div>
+    <div class="eyebrow">// OPERATION FOCUS <span class="dim">· CENTRAL COAST</span></div>
+    <div class="demo-h1">Your website is an<br>online ornament.<br><span class="accent">Put it to work.</span></div>
+    <div class="demo-p">Missed calls, slow replies, page four of Google. We build the system that catches the job while you're still up a ladder.</div>
+    <a class="btn">Request a briefing →</a>
+    <a class="btn btn-ghost">View case files</a>
+  </div>
+
+  <div class="demo-paper">
+    <div class="eyebrow">// CASE FILES <span style="color:#8A8378">· DECLASSIFIED</span></div>
+    <div class="demo-h1">Real missions.<br>Real <span class="redact">████████</span> impact.</div>
+    <div class="demo-p">Websites engineered for businesses that don't have time for guesswork.</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:22px">
+      <div class="filecard"><div class="filenum">[ 01 ] PLUMBING</div><h4>Frontline</h4><p>161% more calls from Google in 60 days.</p></div>
+      <div class="filecard"><div class="filenum">[ 02 ] ELECTRICAL</div><h4>Volt Electric</h4><p>165% more booked jobs in 60 days.</p></div>
+      <div class="filecard"><div class="filenum">[ 03 ] LANDSCAPING</div><h4>Evergreen</h4><p>223% more form submissions in 45 days.</p></div>
+    </div>
+  </div>
+
+  <h2 id="wordmark">Wordmark — covered and declassified</h2>
+  <p class="subtitle">Left is the covered state: on the web it starts here and wipes away on load. Right is the resting state everywhere static, including print. The rule: the logo bar always resolves. Content redaction in headlines stays hidden.</p>
+  <div class="marks">
+    <div>
+      <div class="markbox"><div class="wm">Redacted<br><span class="cover">████████</span></div></div>
+      <div class="caption">Covered · animated in only</div>
+    </div>
+    <div>
+      <div class="markbox"><div class="wm">Redacted<br><span class="knock">Digital</span></div></div>
+      <div class="caption">Declassified · print + resting</div>
+    </div>
+    <div>
+      <div class="markbox onDark"><div class="wm">Redacted<br><span class="knock">Digital</span></div></div>
+      <div class="caption">On asphalt · orange block variant</div>
+    </div>
+  </div>
+
+  <h2 id="card">Business card — actual physical size</h2>
+  <p class="subtitle">85 × 55mm. On a normal display this is roughly real size against a ruler. Copy is placeholder.</p>
+  <div class="cards-row">
+    <div>
+      <div class="bcard bcard-front">
+        <div class="bc-corner">[ CONFIDENTIAL ]</div>
+        <div class="bc-mark">Redacted<br><span class="bar2">Digital</span></div>
+        <div class="bc-rule"></div>
+        <div class="bc-name">Byron</div>
+        <div class="bc-role">Operative · Founder</div>
+        <div class="bc-det">redacteddigital.au<br>byron@redacteddigital.au<br>0400 000 000</div>
+      </div>
+      <div class="caption">Front · cream uncoated stock, black + orange</div>
+    </div>
+    <div>
+      <div class="bcard bcard-back"><div class="bc-seal">REDACTED<br>DIGITAL<br>— AU —</div></div>
+      <div class="caption">Back · seal placeholder (operative goes here)</div>
+    </div>
+  </div>
+
+  <h2 id="structure">Page structure — 7 sections, three flips</h2>
+  <p class="subtitle">Down from eleven. The stripe pattern is the point: dark carries the pitch, paper carries the proof. Every flip is a gear change, which is what stops a long page feeling long.</p>
+
+  <div class="legend">
+    <div class="lg"><span class="dot" style="background:#1B1D20"></span> ASPHALT — pitch, voice, momentum</div>
+    <div class="lg"><span class="dot" style="background:#F2EEE6"></span> PAPER — proof, detail, redaction</div>
+    <div class="lg"><span class="dot" style="background:#E2561C"></span> FLIP MARKER</div>
+  </div>
+
+  <div class="st-wrap">
+    <div class="page">
+      <div class="sec deep">
+        <div class="sec-top"><span class="sec-num">[ 01 ]</span><span class="sec-tag">// OPERATION FOCUS</span></div>
+        <h4 class="sec-name">Hero</h4>
+        <p class="sec-desc">One claim, one line of plain English, one button. Big condensed caps, orange on the payoff line. The single cinematic moment on the page.</p>
+      </div>
+      <div class="sec dark thin">
+        <div class="sec-top"><span class="sec-num">[ 02 ]</span><span class="sec-tag">// CAPABILITY TICKER</span></div>
+        <p class="sec-desc" style="margin-top:2px">Thin scrolling mono strip. Cheap rhythm, reads as part of the hero, buys a breath before the pitch.</p>
+      </div>
+      <div class="sec dark">
+        <div class="sec-top"><span class="sec-num">[ 03 ]</span><span class="sec-tag">// THREAT ASSESSMENT</span></div>
+        <h4 class="sec-name">The problem</h4>
+        <p class="sec-desc">Three pains, not four. Missed calls, page four of Google, slow replies. Scroll-triggered <span class="redact">████</span> reveals.</p>
+      </div>
+      <div class="flip"></div>
+      <div class="sec paper">
+        <div class="sec-top"><span class="sec-num">[ 04 ]</span><span class="sec-tag">// CASE FILES · DECLASSIFIED</span></div>
+        <h4 class="sec-name">Proof</h4>
+        <p class="sec-desc">Real numbers on real jobs. Merges the old Social Proof and Portfolio into one hit. Redaction works properly here because it's paper.</p>
+      </div>
+      <div class="sec paper">
+        <div class="sec-top"><span class="sec-num">[ 05 ]</span><span class="sec-tag">// CAPABILITIES</span></div>
+        <h4 class="sec-name">What we actually do</h4>
+        <p class="sec-desc">Four or five, plain language. Absorbs the old Solution and Why Us sections, which were saying the same thing twice.</p>
+      </div>
+      <div class="flip"></div>
+      <div class="sec dark">
+        <div class="sec-top"><span class="sec-num">[ 06 ]</span><span class="sec-tag">// THE METHOD</span></div>
+        <h4 class="sec-name">How it works</h4>
+        <p class="sec-desc">Briefing → Build → Deploy → Grow. Four steps, horizontal on desktop, stacked on mobile. Kills the "what am I signing up for" objection.</p>
+      </div>
+      <div class="flip"></div>
+      <div class="sec paper">
+        <div class="sec-top"><span class="sec-num">[ 07 ]</span><span class="sec-tag">// TERMS OF ENGAGEMENT</span></div>
+        <h4 class="sec-name">What it costs</h4>
+        <p class="sec-desc"><strong>New.</strong> From $X/mo, three tiers named, link to the full pricing page. The older buyer will not ring you without a number.</p>
+      </div>
+      <div class="sec deep">
+        <div class="sec-top"><span class="sec-num">[ 08 ]</span><span class="sec-tag">// MISSION BRIEFING</span></div>
+        <h4 class="sec-name">Final CTA + footer</h4>
+        <p class="sec-desc">Operative seal, one button, contact details. Merged — a standalone CTA above a footer is two goodbyes.</p>
+      </div>
+    </div>
+
+    <div class="side">
+      <h3>What got cut</h3>
+      <ul class="cutlist">
+        <li><span class="k">SOLUTION</span> — merged into Capabilities. Was restating the pitch.</li>
+        <li><span class="k">WHY US</span> — merged into Capabilities. Four cards saying "we're good".</li>
+        <li><span class="k">PROBLEMS WE FIX</span> — it's an FAQ. Belongs on a subpage.</li>
+        <li><span class="k">RESOURCES</span> — your own doc calls it a placeholder at launch. Don't ship an empty room.</li>
+        <li><span class="k">SOCIAL PROOF</span> — folded into Case Files. Testimonials sit next to the numbers they belong to.</li>
+      </ul>
+      <h3>What got added</h3>
+      <ul>
+        <li><span class="k">PRICING TEASER</span> — the one genuine addition. A tradie who can't find a number assumes he can't afford you and closes the tab.</li>
+      </ul>
+      <h3>The argument</h3>
+      <ul>
+        <li>Eleven → seven is a cut, not a trim. Every section removed was repeating another one.</li>
+        <li>Three flips means the page changes gear three times. That's what keeps a scroll from feeling endless.</li>
+        <li>Paper carries every fact you want believed. Dark carries every claim you want felt.</li>
+        <li>Target: roughly half Firecrawl's height.</li>
+      </ul>
+    </div>
+  </div>
+
+</main>
+</body>
+</html>
