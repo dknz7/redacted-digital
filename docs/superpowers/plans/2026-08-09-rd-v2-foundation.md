@@ -34,14 +34,12 @@ The repo root `CLAUDE.md` documents hot pink `#FF2C64`, mono display headings an
 - Consumes: nothing
 - Produces: a `v2-redesign` branch with an empty `src/components/` and `src/lib/`, and docs that point at the v2 spec
 
-- [ ] **Step 1: Confirm the base branch with Byron before branching**
+- [x] **Step 1: Confirm the base branch** — RESOLVED 2026-08-09. Branch from `main`.
 
-The repo is currently on `feat/client-cms` with unrelated CMS work. Ask which branch v2 should start from — `main`, or the current branch. Do not guess. Stop and wait.
-
-- [ ] **Step 2: Create the branch**
+- [x] **Step 2: Create the branch** — DONE. `feat/v2-redesign` exists, cut from `main`, with the four v2 doc commits replayed onto it. Verify you are on it before continuing:
 
 ```bash
-git checkout -b v2-redesign
+git branch --show-current   # expect: feat/v2-redesign
 ```
 
 - [ ] **Step 3: Delete the v1 component tree**
@@ -120,18 +118,19 @@ MagicPath loads fonts via CSS `@import`. Next.js should not — `next/font` self
 
 **Interfaces:**
 - Consumes: nothing
-- Produces: `fontDisplay`, `fontBody`, `fontAnnot` exports, each a `NextFont` with `.variable` yielding CSS variables `--font-league`, `--font-switzer`, `--font-jetbrains`
+- Produces: `fontDisplay` and `fontAnnot` (`NextFont`, yielding `--font-league` and `--font-jetbrains`), plus the `SWITZER_CDN` constant. `--font-switzer` is declared in `globals.css` rather than by next/font, because Switzer cannot be self-hosted under its licence.
 
 **Naming matters here.** next/font must NOT claim `--font-display`, `--font-body` or `--font-annot` — Tailwind's `@theme` block defines those in Task 3, and a variable that resolves to itself silently falls back to the system font with no error. The raw font files get `--font-league`/`--font-switzer`/`--font-jetbrains`; the theme maps the semantic names onto them.
 
 - [ ] **Step 1: Write the font module**
 
-League Gothic and JetBrains Mono come from Google. Switzer is not on Google Fonts, so it is loaded from local files.
+League Gothic and JetBrains Mono are Google Fonts and are self-hosted through `next/font/google`. **Switzer is not.** It is governed by the ITF Free Font License, whose §02 prohibits "uploading them in a public server" — which is what self-hosting a woff2 on Vercel does. §01 permits web use, and the licence explicitly describes the Fontshare API as the route where the font is served from ITF's own servers without the licensee downloading it. So Switzer loads from the Fontshare CDN.
+
+Side benefit: MagicPath loads Switzer the same way, so the canvas and production render identically.
 
 ```typescript
 // src/lib/fonts.ts
 import { League_Gothic, JetBrains_Mono } from 'next/font/google';
-import localFont from 'next/font/local';
 
 export const fontDisplay = League_Gothic({
   subsets: ['latin'],
@@ -147,22 +146,22 @@ export const fontAnnot = JetBrains_Mono({
   display: 'swap',
 });
 
-export const fontBody = localFont({
-  src: [
-    { path: '../../public/fonts/Switzer-Regular.woff2', weight: '400', style: 'normal' },
-    { path: '../../public/fonts/Switzer-Medium.woff2', weight: '500', style: 'normal' },
-    { path: '../../public/fonts/Switzer-Semibold.woff2', weight: '600', style: 'normal' },
-  ],
-  variable: '--font-switzer',
-  display: 'swap',
-});
+// Switzer is licence-restricted from self-hosting. Served from Fontshare's CDN
+// and wired to --font-switzer manually in globals.css (see Task 3).
+export const SWITZER_CDN =
+  'https://api.fontshare.com/v2/css?f[]=switzer@400,500,600&display=swap';
 ```
 
-- [ ] **Step 2: Download the Switzer font files**
+- [ ] **Step 2: Add the Switzer stylesheet link to the root layout**
 
-Fetch the Switzer family from https://www.fontshare.com/fonts/switzer and place the three woff2 files at the exact paths above. Create `public/fonts/` if it does not exist.
+Do NOT download any Switzer files. In `src/app/layout.tsx`, add inside the `<html>` element, before `<body>`:
 
-**Before doing this, confirm the Fontshare licence permits commercial use** — this is open question 4 in the spec and is unresolved. If the licence does not permit it, stop and report; do not substitute a different font unilaterally.
+```tsx
+<head>
+  <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="" />
+  <link rel="stylesheet" href={SWITZER_CDN} />
+</head>
+```
 
 - [ ] **Step 3: Apply the font variables in the root layout**
 
@@ -237,7 +236,7 @@ These values must match the MagicPath canvas exactly. Any drift means exported c
 
   /* Type — semantic names mapping onto the raw next/font variables */
   --font-display: var(--font-league), "Arial Narrow", sans-serif;
-  --font-body: var(--font-switzer), system-ui, sans-serif;
+  --font-body: "Switzer", system-ui, sans-serif;
   --font-annot: var(--font-jetbrains), ui-monospace, monospace;
 }
 
@@ -846,6 +845,6 @@ Each of these is its own plan, written once its blockers clear:
 
 ## Open questions carried from the spec
 
-1. **Base branch** — Task 1 Step 1 stops and asks. The repo sits on `feat/client-cms` with unrelated work.
-2. **Fontshare licence** — Task 2 Step 2 stops and asks. Must be confirmed before Switzer ships, not after.
+1. ~~**Base branch**~~ **RESOLVED 2026-08-09.** `feat/v2-redesign`, cut from `main`. Deletion of `feat/client-cms` is pending — it holds a 722-line Illumorama V1 plan that exists nowhere else.
+2. ~~**Fontshare licence**~~ **RESOLVED 2026-08-09.** All Fontshare fonts are free for commercial use, but the ITF FFL §02 forbids uploading font files to a public server. Switzer therefore loads from the Fontshare CDN, not self-hosted. If Byron wants certainty rather than a careful reading, the fallback is emailing ITF or swapping the body face for an OFL-licensed one.
 3. **Sequencing** — this plan assumes landing page and wordmark ship first so business cards are unblocked, with subpages following. Say so if that is wrong.
