@@ -29,7 +29,7 @@ This project's strategic and operational context lives in Google Drive and is th
 
 **Brand voice:** "We" language (deliberately ambiguous on team size). Cheeky personality up front, professional authority in the detail. Tradie-friendly without being patronising.
 
-**Brand aesthetic:** Full classified/redacted/spy-ops theme. Dark UI, warm grey backgrounds, hot pink accent. Premium, cinematic, memorable. Not subtle hints — full commitment.
+**Brand aesthetic:** Full classified/redacted/spy-ops theme. Alternating asphalt-dark and warm paper surfaces, single orange accent `#E2561C`, technical-document grid and margin annotations. Premium, cinematic, memorable. Not subtle hints — full commitment.
 
 ---
 
@@ -73,7 +73,7 @@ sections in three acts.
 
 ## Site Map (12 pages)
 
-1. **Landing page** — cinematic scroll (11 sections)
+1. **Landing page** — seven sections in three acts (see the v2 spec §4)
 2. **Services overview** — hub linking to 5 subpages
 3. **Service: Design**
 4. **Service: Lead Capturing**
