@@ -41,3 +41,17 @@
     line-height: 0.92;
   }
 }
+
+.rd-grid-dark {
+  background-image:
+    linear-gradient(var(--color-ink-600) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-ink-600) 1px, transparent 1px);
+  background-size: 112px 112px;
+}
+
+.rd-grid-paper {
+  background-image:
+    linear-gradient(var(--color-paper-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-paper-line) 1px, transparent 1px);
+  background-size: 112px 112px;
+}
