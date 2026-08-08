@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
-import { fontDisplay, fontBody } from "@/lib/fonts";
-import PillNav from "@/components/navigation/PillNav";
-import Footer from "@/components/navigation/Footer";
+import { fontDisplay, fontAnnot, SWITZER_CDN } from "@/lib/fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -16,12 +14,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${fontDisplay.variable} ${fontBody.variable}`} suppressHydrationWarning>
-      <body className="grain-overlay antialiased">
-        <PillNav />
-        {children}
-        <Footer />
-      </body>
+    <html
+      lang="en-AU"
+      className={`${fontDisplay.variable} ${fontAnnot.variable}`}
+      suppressHydrationWarning
+    >
+      <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="" />
+      <link rel="stylesheet" href={SWITZER_CDN} />
+      <body className="grain-overlay antialiased">{children}</body>
     </html>
   );
 }
