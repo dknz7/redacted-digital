@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { fontDisplay, fontAnnot, SWITZER_CDN } from "@/lib/fonts";
+import { Nav } from "@/components/rd/Nav";
+import { Footer } from "@/components/rd/Footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -21,7 +23,11 @@ export default function RootLayout({
     >
       <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="" />
       <link rel="stylesheet" href={SWITZER_CDN} />
-      <body className="grain-overlay antialiased">{children}</body>
+      <body className="antialiased">
+        <Nav />
+        <main>{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }
