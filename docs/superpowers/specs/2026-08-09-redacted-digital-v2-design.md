@@ -69,17 +69,19 @@ This is not decoration — it solves a real problem. Redaction bars are a light-
 
 ### 2.2 Typography
 
-Three fonts, three jobs. All free for commercial use; Clash Display and Switzer are Fontshare, loaded via `next/font/local` with self-hosted files.
+Three fonts, three jobs. All free for commercial use. League Gothic and JetBrains Mono are Google Fonts; Switzer is Fontshare.
 
 | Role | Family | Usage |
 |---|---|---|
-| Display | **Clash Display** (600/700) | Hero and section headers only. Uppercase. |
+| Display | **League Gothic** (400) | Hero and section headers only. Uppercase. |
 | Body | **Switzer** (400/500/600) | All readable copy. Mixed case. |
 | Annotation | **JetBrains Mono** (400/500) | Margin counters, eyebrows, corner brackets, labels |
 
 **The discipline that makes this work:** condensed caps never touch body copy, pricing, form fields or contact details. Loud display, calm information. The younger visitor responds to the volume; the older one needs to find the phone number. They read different layers of the same page.
 
-Display is deliberately a variable family with weight range so the whole site can be dialled calmer later without an identity change.
+**Type selection history, so it is not re-litigated.** Clash Display was specified first and rejected on sight — it renders as a wide grotesque, not condensed, and missed the Stitch reference entirely. Bebas Neue was trialled next and worked, but is the most ubiquitous free display face on the web. League Gothic was chosen from an eight-face trial (`fresh-village-2943` on the canvas). It is the classic Alternate Gothic revival Bebas descends from, with more character in the letterforms and far less exposure.
+
+**Known tradeoff, accepted:** League Gothic is a single weight. The earlier plan of picking a variable family so the site could be dialled calmer later without an identity change no longer applies. Going calmer now means changing the face.
 
 ### 2.3 Grid and annotation
 
@@ -214,6 +216,19 @@ The signature motion is bespoke: scroll-triggered redaction reveals firing on pa
 **Documentation debt, treated as part of the work, not after it.** The repo root `CLAUDE.md` currently documents `#FF2C64` hot pink, mono display headings, eleven sections and the old page structure as canon. Any future session reads that and confidently builds the wrong site. Both it and `docs/redacted-digital-site-design.md` must be rewritten or explicitly marked superseded.
 
 ---
+
+### 6.1 MagicPath working notes
+
+Verified 2026-08-09 against CLI 2.6.1 while building the first two components.
+
+- **Tailwind v4 tokens are native.** The template ships an `@theme inline` block in `index.css` and no config file. RD tokens (`ink-900`, `paper`, `rd-orange`) live there as first-class utilities and survive export. No re-mapping needed.
+- **External fonts load fine** via CSS `@import` in `index.css`. Both Google Fonts and the Fontshare CDN work.
+- **⚠️ MagicPath rewrites the font import line.** Its normalisation pass detects font-family names and regenerates `@import` URLs, and it silently dropped a JetBrains Mono import on one round. Keep all Google families in a single import URL placed first, and re-check `index.css` after every submit.
+- **⚠️ Every submit makes the local working directory stale.** Run `code start --component <id> --dir <workdir>` to resync before editing again, or the next submit conflicts.
+- **Components need a named export.** `App.tsx` imports `{ ComponentName }`. A default export fails the build.
+- **MagicPath reformats submitted source** (prettier-style). Exact-string edits against a local copy will drift after a round trip — resync first.
+
+**Canvas components so far:** `richly-land-8657` (Design System) · `fresh-village-2943` (Display Face Trials).
 
 ## 7. Out of scope
 
