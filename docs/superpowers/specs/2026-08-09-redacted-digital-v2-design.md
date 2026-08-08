@@ -193,6 +193,18 @@ Twelve pages resolve to **eight distinct designs**:
 
 ## 6. Build approach
 
+**Routing: through MagicPath.** Confirmed 2026-08-09. Mockups are authored into MagicPath, Byron tweaks by hand on the canvas, MagicPath exports code, Claude works on the real code from there.
+
+This splits the work along a clean seam:
+
+| Owner | Scope |
+|---|---|
+| MagicPath | Static composition — layout, type scale, spacing, surface treatment, component structure per section |
+| Byron | Hand-tweaking on canvas. Visual judgement calls stay with the person who has the eye |
+| Claude, post-export | Motion, routing, data, integration, responsive edge cases, GHL embeds |
+
+The signature motion is bespoke: scroll-triggered redaction reveals firing on paper sections via GSAP ScrollTrigger. Assume this is **added after export**, not produced by it. MagicPath output is the static composition; the page comes alive in code.
+
 **Clean rebuild.** `src/` is wiped. Nothing is salvaged, including `RedactionReveal` and `TextScramble` — the new redaction behaviour fires on paper sections with true black bars and differs enough that rewriting beats adapting.
 
 **Retained:** git history, `docs/`, `brand_assets/`, and the toolchain — Next.js 16, Tailwind v4, TypeScript, GSAP + ScrollTrigger, eslint config. Hosting stays Vercel.
@@ -219,7 +231,9 @@ These need answers before or during the implementation plan. None of them block 
 
 1. **Case Files has no content.** Section 04 is the credibility centre of the page and the numbers currently mocked up (161% more calls, 223% form submissions) are fiction carried over from the GPT mockup. Redacted Digital has identified pilot clients but has not delivered results. Either the section launches with friends-and-family work honestly framed, or it is held back until real numbers exist. **Shipping invented metrics is not an option.**
 
-2. **Does this go through MagicPath?** The documented design workflow routes mockups into MagicPath for hand-tweaking, then exports code. This spec assumes Claude builds directly in Next.js. Confirm which.
+2. ~~**Does this go through MagicPath?**~~ **Answered 2026-08-09: yes.** See §6. Two capability questions fall out of it, neither verified:
+   - Can MagicPath use self-hosted Fontshare files (Clash Display, Switzer), or is it limited to a built-in font set? If limited, either the display face changes or the type is corrected post-export.
+   - Does the export carry the Tailwind v4 `@theme` token structure, or does the palette need re-mapping by hand after each export? Affects how painful iteration is.
 
 3. **Sequencing versus business cards.** The stated business need that started this was printed cards for in-person outreach. Cards need the wordmark and a resolving URL — not Success Stories or five service pages. Decide whether landing page plus logo ships and goes live first so cards can be printed, with subpages following.
 
