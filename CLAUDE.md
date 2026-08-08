@@ -35,8 +35,9 @@ This project's strategic and operational context lives in Google Drive and is th
 
 ## Current Status
 
-- **Phase:** Design complete. Implementation plan is next.
-- **Design document:** `docs/plans/2026-03-10-redacted-digital-site-design.md`
+- **Phase:** v2 rebuild. Design spec approved, foundation in progress.
+- **Design spec:** `docs/superpowers/specs/2026-08-09-redacted-digital-v2-design.md`
+- **Design canvas:** MagicPath project `Redacted-Digital` (id `436965821978415104`)
 - **Skills:** Available in `/skills` directory
 - **Logo:** Not yet created. Needs to be designed (typographic wordmark with redaction motif).
 - **GHL account:** Trial not yet started. Will be activated when ready to build client templates.
@@ -60,40 +61,13 @@ This project's strategic and operational context lives in Google Drive and is th
 
 ## Design System
 
-### Colours
+**Superseded 2026-08-09.** The v1 system (hot pink `#FF2C64`, monospace display
+headings, eleven landing sections) is dead. Do not build against it.
 
-| Role | Hex |
-|------|-----|
-| Primary background | #303030 |
-| Recessed surfaces | #1E1E1E – #222222 |
-| Elevated surfaces | #3A3A3A – #404040 |
-| Accent | #FF2C64 |
-| Text primary | #FFFFFF |
-| Text secondary | #AAAAAA |
-
-### Typography
-
-- **Display/headings:** Monospaced or semi-mono (Space Mono, JetBrains Mono, or IBM Plex Mono). Bold, uppercase where appropriate.
-- **Body:** Clean geometric sans (Outfit, Satoshi, or General Sans).
-
-### Motion
-
-- Redaction bar reveals (GSAP ScrollTrigger)
-- Text scramble/declassify effects
-- Stagger animations on scroll
-- Grain/scan-line background texture
-- Hero: scroll-driven frame sequence (the one cinematic moment)
-- All other pages: lighter motion vocabulary
-
-### Navigation
-
-- Floating pill nav, glassmorphism, consistent across all pages
-- Wordmark left, links centre, CTA right (#FF2C64 "Request a Briefing")
-- Hamburger on mobile
-
-### Mobile-First Rule
-
-Every component designed for desktop AND mobile. Mobile alternatives defined at design time, not during code review.
+The current system lives in `docs/superpowers/specs/2026-08-09-redacted-digital-v2-design.md`.
+Summary: asphalt `ink-*` and warm paper surfaces, single orange accent `#E2561C`,
+League Gothic display / Switzer body / JetBrains Mono annotation, seven landing
+sections in three acts.
 
 ---
 
@@ -116,27 +90,8 @@ Every component designed for desktop AND mobile. Mobile alternatives defined at 
 
 ## Landing Page Sections (in order)
 
-1. **Hero** — scroll-driven frame animation, headline/reveal/tagline/CTA
-   - Headline: "Your website is just an online ornament."
-   - Reveal: "Make it another tool in your toolbox. Put it to work!"
-   - Tagline: "Less phone time, more tool time."
-   - CTA: "Request a Briefing"
-   - Scroll prompt: "Scroll to declassify"
-2. **Scrolling capability ticker** — monospaced, #FF2C64 on #282828
-3. **The Problem** — 4x pain points with redaction reveals
-   - "No answer means your competitor has already been called."
-   - "Page 4 of Google is where local businesses go to hide."
-   - "If you don't respond on first contact, they'll book someone who does."
-   - "Isn't your best work invisible if nobody reviews it?"
-   - Closing: "// THREAT ASSESSMENT COMPLETE — Countermeasures below."
-4. **The Solution** — "Do what you do best — the tools, the work. Not the admin." + 5x flip cards (Design, Lead Capturing, AI & Automation, SEO & Local Search, Mobile App Management)
-5. **Why Us** — 4x vertical side-by-side cards, redaction reveal on hover (Ugly websites don't get callbacks / Leads on autopilot / Google will know your name / AI that never calls in sick)
-6. **Social Proof / Portfolio Preview** — "// DECLASSIFIED OPERATIONS" + 2-3 project cards + testimonial
-7. **The Secret** — process infographic (Briefing → Build → Deploy → Grow)
-8. **Common Problems We Fix** — 5x problem/countermeasure cards (replaces FAQ)
-9. **Free Resources** — "// FIELD RESOURCES" placeholder at launch
-10. **Final CTA** — "// MISSION BRIEFING REQUESTED"
-11. **Footer**
+**Superseded 2026-08-09.** Eleven sections cut to seven. See
+`docs/superpowers/specs/2026-08-09-redacted-digital-v2-design.md` §4.
 
 ---
 

@@ -1,5 +1,8 @@
 # Redacted Digital — Website Design Document
 
+> **SUPERSEDED 2026-08-09.** Retained for history only. The live design is
+> `docs/superpowers/specs/2026-08-09-redacted-digital-v2-design.md`.
+
 > **Date:** 2026-03-10
 > **Status:** Approved
 > **Next Step:** Invoke writing-plans skill to create implementation plan
