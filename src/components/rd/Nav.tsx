@@ -58,21 +58,23 @@ export function Nav() {
           Request a briefing
         </Link>
       </nav>
-      {open && (
-        <ul id="mobile-nav" className="md:hidden border-t border-ink-700 px-6 py-4 space-y-1">
-          {LINKS.map((l) => (
-            <li key={l.href}>
-              <Link
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className="block py-3 font-annot text-[12px] tracking-[0.12em] uppercase text-ink-200 hover:text-rd-orange transition-colors"
-              >
-                {l.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul
+        id="mobile-nav"
+        hidden={!open}
+        className="md:hidden border-t border-ink-700 px-6 py-4 space-y-1"
+      >
+        {LINKS.map((l) => (
+          <li key={l.href}>
+            <Link
+              href={l.href}
+              onClick={() => setOpen(false)}
+              className="block py-3 font-annot text-[12px] tracking-[0.12em] uppercase text-ink-200 hover:text-rd-orange transition-colors"
+            >
+              {l.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </header>
   );
 }

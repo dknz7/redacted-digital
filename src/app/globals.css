@@ -47,6 +47,7 @@
     outline: 2px solid var(--color-rd-orange);
     outline-offset: 2px;
     border-radius: 2px;
+    transition-property: none;
   }
 }
 

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { usePrefersReducedMotion } from '@/lib/usePrefersReducedMotion';
@@ -17,9 +17,17 @@ export function RedactBar({
   const barRef = useRef<HTMLSpanElement>(null);
   const wrapRef = useRef<HTMLSpanElement>(null);
   const reduced = usePrefersReducedMotion();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    if (permanent || !barRef.current || !wrapRef.current) return;
+    // Intentional mount-detection flip: delays the animation effect below by
+    // one commit so the client's real reduced-motion snapshot has settled.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted || permanent || !barRef.current || !wrapRef.current) return;
     if (reduced) {
       gsap.set(barRef.current, { scaleX: 0 });
       return;
@@ -34,7 +42,7 @@ export function RedactBar({
       });
     }, wrapRef);
     return () => ctx.revert();
-  }, [permanent, reduced]);
+  }, [mounted, permanent, reduced]);
 
   return (
     <span ref={wrapRef} className="relative inline-block align-baseline">
