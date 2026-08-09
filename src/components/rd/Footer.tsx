@@ -38,7 +38,12 @@ export function Footer() {
           <br />
           Central Coast, NSW
           <br />
-          byron@redacteddigital.au
+          <a
+            href="mailto:byron@redacteddigital.au"
+            className="text-ink-200 hover:text-rd-orange transition-colors"
+          >
+            byron@redacteddigital.au
+          </a>
         </div>
         {COLUMNS.map((col) => (
           <div key={col.title}>

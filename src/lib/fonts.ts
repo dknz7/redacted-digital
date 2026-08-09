@@ -14,7 +14,7 @@ export const fontAnnot = JetBrains_Mono({
   display: "swap",
 });
 
-// Switzer is licence-restricted from self-hosting. Served from Fontshare's CDN
-// and wired to --font-switzer manually in globals.css (see Task 3).
+// Switzer is licence-restricted from self-hosting. Served from Fontshare's CDN;
+// the family name is declared directly in the @theme block in globals.css.
 export const SWITZER_CDN =
   "https://api.fontshare.com/v2/css?f[]=switzer@400,500,600&display=swap";

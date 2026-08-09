@@ -1,3 +1,6 @@
+> **SUPERSEDED 2026-08-09.** Describes the v1 build, which was deleted. The live
+> design is `docs/superpowers/specs/2026-08-09-redacted-digital-v2-design.md`.
+
 # Redacted Digital — Phase 1 Implementation Plan
 
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.

@@ -12,7 +12,7 @@ This project's strategic and operational context lives in Google Drive and is th
 
 > This file carries project context across all Claude sessions (Chat and Code).
 > It is the single source of truth for what has been decided and where we're at.
-> Last updated: 2026-03-10
+> Last updated: 2026-08-09
 
 ---
 
@@ -52,10 +52,17 @@ This project's strategic and operational context lives in Google Drive and is th
 - **Styling:** Tailwind CSS
 - **Hosting:** Vercel
 - **Animation:** GSAP + ScrollTrigger (scroll-driven), CSS transitions (lighter interactions)
-- **Hero animation pipeline:** Start/end frame images → Veo 3.1 interpolation → ffmpeg frame extraction → scroll-driven playback
 - **GHL integration:** Embedded via code snippets (forms, calendar, chat widget, tracking pixel)
 - **Meta pixel:** In `<head>` for ad tracking
 - **Version control:** Git (this repo), synced between Claude Chat (via Project link) and Claude Code (local clone)
+
+---
+
+## Agent Safety Rules
+
+- **Never run process-wide kills.** No `taskkill /F /IM node.exe`, no `pkill node`,
+  no `killall`. An agent did this on 2026-08-09 and killed every Node process on
+  the machine, taking down unrelated MCP servers. Stop only the PID you started.
 
 ---
 
@@ -81,7 +88,7 @@ sections in three acts.
 6. **Service: SEO & Local Search**
 7. **Service: Mobile App Management**
 8. **Pricing** — 3 tiers (Launch / Convert / Grow) + add-ons
-9. **Success Stories** — portfolio + testimonial flip cards
+9. **Success Stories** — portfolio + testimonials
 10. **About** — "The Operative"
 11. **Contact / Booking** — GHL calendar + form embed
 12. **Privacy Policy + Terms**
@@ -187,6 +194,9 @@ Setup fees kept but waived/discounted on case-by-case basis (pilot clients, refe
 ---
 
 ## Reference Sites
+
+> **v1-era references.** Retained for history. The v2 references are firecrawl.dev
+plus the two mockups in `brand_assets/`.
 
 - https://webjuice.io — Competitor reference (GHL reseller, good offer structure, poor design/copy)
 - https://www.yeshaya.dev — Design/copy inspiration (clean, cheeky, clever sections)

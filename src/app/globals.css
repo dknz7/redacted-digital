@@ -14,6 +14,8 @@
   --color-paper: #f2eee6;
   --color-paper-dim: #e5dfd4;
   --color-paper-line: #d6cec0;
+  --color-paper-muted: #8a8378;
+  --color-paper-text: #3a3d42;
   --color-redact: #000000;
 
   /* Accent */
@@ -40,18 +42,26 @@
     text-transform: uppercase;
     line-height: 0.92;
   }
+
+  :focus-visible {
+    outline: 2px solid var(--color-rd-orange);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
 }
 
-.rd-grid-dark {
-  background-image:
-    linear-gradient(var(--color-ink-600) 1px, transparent 1px),
-    linear-gradient(90deg, var(--color-ink-600) 1px, transparent 1px);
-  background-size: 112px 112px;
-}
+@layer components {
+  .rd-grid-dark {
+    background-image:
+      linear-gradient(var(--color-ink-600) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-ink-600) 1px, transparent 1px);
+    background-size: 112px 112px;
+  }
 
-.rd-grid-paper {
-  background-image:
-    linear-gradient(var(--color-paper-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--color-paper-line) 1px, transparent 1px);
-  background-size: 112px 112px;
+  .rd-grid-paper {
+    background-image:
+      linear-gradient(var(--color-paper-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-paper-line) 1px, transparent 1px);
+    background-size: 112px 112px;
+  }
 }

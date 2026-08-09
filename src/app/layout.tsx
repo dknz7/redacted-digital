@@ -7,7 +7,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Redacted Digital | Less Phone Time, More Tool Time",
   description:
-    "Smart websites that capture leads, book jobs, and follow up automatically. Central Coast & Hunter Valley, NSW.",
+    "Lead systems for Central Coast trades and service businesses. Websites that catch the job while you are still up a ladder.",
 };
 
 export default function RootLayout({
@@ -22,7 +22,8 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="" />
-      <link rel="stylesheet" href={SWITZER_CDN} />
+      <link rel="preconnect" href="https://cdn.fontshare.com" crossOrigin="" />
+      <link rel="stylesheet" href={SWITZER_CDN} precedence="default" />
       <body className="antialiased">
         <Nav />
         <main>{children}</main>

@@ -23,7 +23,11 @@ export default function Home() {
               <FileCounter index={i + 1} total={SECTIONS.length} />
             </CornerMark>
             <Eyebrow>{s.eyebrow}</Eyebrow>
-            <h2 className="rd-display text-5xl sm:text-7xl">{s.title}</h2>
+            {i === 0 ? (
+              <h1 className="rd-display text-5xl sm:text-7xl">{s.title}</h1>
+            ) : (
+              <h2 className="rd-display text-5xl sm:text-7xl">{s.title}</h2>
+            )}
             <p className="font-body text-sm mt-4 opacity-60">
               Placeholder. Content arrives from the MagicPath export for this section.
             </p>

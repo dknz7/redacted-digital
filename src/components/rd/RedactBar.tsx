@@ -3,6 +3,7 @@
 import React, { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { usePrefersReducedMotion } from '@/lib/usePrefersReducedMotion';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,10 +16,11 @@ export function RedactBar({
 }) {
   const barRef = useRef<HTMLSpanElement>(null);
   const wrapRef = useRef<HTMLSpanElement>(null);
+  const reduced = usePrefersReducedMotion();
 
   useEffect(() => {
     if (permanent || !barRef.current || !wrapRef.current) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (reduced) {
       gsap.set(barRef.current, { scaleX: 0 });
       return;
     }
@@ -32,7 +34,7 @@ export function RedactBar({
       });
     }, wrapRef);
     return () => ctx.revert();
-  }, [permanent]);
+  }, [permanent, reduced]);
 
   return (
     <span ref={wrapRef} className="relative inline-block align-baseline">

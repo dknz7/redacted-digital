@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { usePrefersReducedMotion } from '@/lib/usePrefersReducedMotion';
 
 export function Wordmark({
   tone = 'asphalt',
@@ -9,18 +10,14 @@ export function Wordmark({
   tone?: 'paper' | 'asphalt';
   size?: number;
 }) {
-  const [open, setOpen] = useState(false);
-  const [reduced, setReduced] = useState(false);
+  const reduced = usePrefersReducedMotion();
+  const [open, setOpen] = useState(() => reduced);
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setReduced(true);
-      setOpen(true);
-      return;
-    }
+    if (reduced) return;
     const t = window.setTimeout(() => setOpen(true), 350);
     return () => window.clearTimeout(t);
-  }, []);
+  }, [reduced]);
 
   const isPaper = tone === 'paper';
 
