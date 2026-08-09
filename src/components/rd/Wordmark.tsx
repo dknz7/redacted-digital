@@ -11,13 +11,15 @@ export function Wordmark({
   size?: number;
 }) {
   const reduced = usePrefersReducedMotion();
-  const [open, setOpen] = useState(() => reduced);
+  const [timedOpen, setTimedOpen] = useState(false);
 
   useEffect(() => {
     if (reduced) return;
-    const t = window.setTimeout(() => setOpen(true), 350);
+    const t = window.setTimeout(() => setTimedOpen(true), 350);
     return () => window.clearTimeout(t);
   }, [reduced]);
+
+  const open = reduced || timedOpen;
 
   const isPaper = tone === 'paper';
 
