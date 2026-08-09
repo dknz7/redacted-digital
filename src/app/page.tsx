@@ -17,21 +17,25 @@ export default function Home() {
   return (
     <>
       {SECTIONS.map((s, i) => (
-        <Surface key={s.id} tone={s.tone} className="min-h-[60vh]">
-          <div id={s.id}>
-            <CornerMark position="tr">
-              <FileCounter index={i + 1} total={SECTIONS.length} />
-            </CornerMark>
-            <Eyebrow>{s.eyebrow}</Eyebrow>
-            {i === 0 ? (
-              <h1 className="rd-display text-5xl sm:text-7xl">{s.title}</h1>
-            ) : (
-              <h2 className="rd-display text-5xl sm:text-7xl">{s.title}</h2>
-            )}
-            <p className="font-body text-sm mt-4 opacity-60">
-              Placeholder. Content arrives from the MagicPath export for this section.
-            </p>
-          </div>
+        <Surface
+          key={s.id}
+          id={s.id}
+          tone={s.tone}
+          pad={i === 1 ? 'tight' : undefined}
+          className={i === 1 ? '' : 'min-h-[60vh]'}
+        >
+          <CornerMark position="tr">
+            <FileCounter index={i + 1} total={SECTIONS.length} />
+          </CornerMark>
+          <Eyebrow>{s.eyebrow}</Eyebrow>
+          {i === 0 ? (
+            <h1 className="rd-display text-5xl sm:text-7xl">{s.title}</h1>
+          ) : (
+            <h2 className="rd-display text-5xl sm:text-7xl">{s.title}</h2>
+          )}
+          <p className="font-body text-sm mt-4 opacity-60">
+            Placeholder. Content arrives from the MagicPath export for this section.
+          </p>
         </Surface>
       ))}
     </>
