@@ -1,5 +1,6 @@
 import { Surface } from '@/components/rd/Surface';
 import { Eyebrow, CornerMark, FileCounter } from '@/components/rd/Annot';
+import { RedactBlock } from '@/components/rd/RedactBlock';
 
 type Tone = 'deep' | 'dark' | 'paper';
 
@@ -29,7 +30,18 @@ export default function Home() {
           </CornerMark>
           <Eyebrow>{s.eyebrow}</Eyebrow>
           {i === 0 ? (
-            <h1 className="rd-display text-5xl sm:text-7xl">{s.title}</h1>
+            // Above the fold, so it plays on mount rather than on scroll. Orange
+            // because ink-900 would swallow a black bar.
+            <RedactBlock
+              blockColor="var(--color-rd-orange)"
+              stagger={0.17}
+              animateOnScroll={false}
+              delay={0.3}
+            >
+              <h1 className="rd-display text-5xl sm:text-7xl max-w-4xl">
+                Most websites are online ornaments. Yours should be a workhorse.
+              </h1>
+            </RedactBlock>
           ) : (
             <h2 className="rd-display text-5xl sm:text-7xl">{s.title}</h2>
           )}
