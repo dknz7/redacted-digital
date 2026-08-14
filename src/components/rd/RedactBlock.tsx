@@ -54,7 +54,11 @@ export function RedactBlock({
     let split: SplitText | null = null;
 
     const ctx = gsap.context(() => {
-      split = new SplitText(root, { type: 'lines' });
+      // Split the children, never the wrapper. Handed a container with a
+      // block-level child, SplitText clones that child once per line — which
+      // silently turns one <h1> into two.
+      const targets = root.children.length ? Array.from(root.children) : [root];
+      split = new SplitText(targets, { type: 'lines' });
 
       const blocks = split.lines.map((line) => {
         const parent = line.parentNode;
