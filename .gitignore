@@ -36,3 +36,17 @@ next-env.d.ts
 
 # Superpowers brainstorm sessions
 .superpowers/
+
+# 4K operative source renders — ~87MB of generated art that would double the
+# repo permanently. The traced mask-cream/trace-me derivatives ARE tracked, and
+# those are what the hero and CTA vectors are actually built from. These
+# originals live on Byron's disk only — back them up somewhere that isn't here.
+brand_assets/operative/operative-hero-4k.png
+brand_assets/operative/operative-hallway-01-doorway.png
+brand_assets/operative/operative-hallway-02-cinematic.png
+brand_assets/operative/operative-hallway-03-cabinets.png
+brand_assets/operative/operative-hallway-04-room.png
+brand_assets/operative/operative-hallway-05-corridor.png
+
+# Scratch output from the card plate-adjustment script
+brand_assets/cards/adj*.log
